@@ -456,135 +456,135 @@ All other messages are mandatory *per role*, i.e. in an implementation which onl
 
 Sent by a *Client* to initiate opening of a WAMP session to a *Router* attaching to a *Realm*.
 
-    [HELLO, Realm|uri, Details|dict]
+    [HELLO|1, Realm|uri, Details|dict]
 
 #### WELCOME
 
 Sent by a *Router* to accept a *Client*. The WAMP session is now open.
 
-    [WELCOME, Session|id, Details|dict]
+    [WELCOME|2, Session|id, Details|dict]
 
 #### ABORT
 
 Sent by a *Peer* to abort the opening of a WAMP session. No response is expected.
 
-    [ABORT, Details|dict, Reason|uri]
+    [ABORT|3, Details|dict, Reason|uri]
 
 #### GOODBYE
 
 Sent by a *Peer* to close a previously opened WAMP session. Must be echo'ed by the receiving *Peer*.
 
-    [GOODBYE, Details|dict, Reason|uri]
+    [GOODBYE|6, Details|dict, Reason|uri]
 
 #### ERROR
 
 Error reply sent by a *Peer* as an error response to different kinds of requests.
 
-    [ERROR, REQUEST.Type|int, REQUEST.Request|id, Details|dict, Error|uri]
-    [ERROR, REQUEST.Type|int, REQUEST.Request|id, Details|dict, Error|uri, Arguments|list]
-    [ERROR, REQUEST.Type|int, REQUEST.Request|id, Details|dict, Error|uri, Arguments|list, ArgumentsKw|dict]
+    [ERROR|8, REQUEST.Type|int, REQUEST.Request|id, Details|dict, Error|uri]
+    [ERROR|8, REQUEST.Type|int, REQUEST.Request|id, Details|dict, Error|uri, Arguments|list]
+    [ERROR|8, REQUEST.Type|int, REQUEST.Request|id, Details|dict, Error|uri, Arguments|list, ArgumentsKw|dict]
 
 #### PUBLISH
 
 Sent by a *Publisher* to a *Broker* to publish an event.
 
-    [PUBLISH, Request|id, Options|dict, Topic|uri]
-    [PUBLISH, Request|id, Options|dict, Topic|uri, Arguments|list]
-    [PUBLISH, Request|id, Options|dict, Topic|uri, Arguments|list, ArgumentsKw|dict]
+    [PUBLISH|16, Request|id, Options|dict, Topic|uri]
+    [PUBLISH|16, Request|id, Options|dict, Topic|uri, Arguments|list]
+    [PUBLISH|16, Request|id, Options|dict, Topic|uri, Arguments|list, ArgumentsKw|dict]
 
 #### PUBLISHED
 
 Acknowledge sent by a *Broker* to a *Publisher* for acknowledged publications.
 
-    [PUBLISHED, PUBLISH.Request|id, Publication|id]
+    [PUBLISHED|17, PUBLISH.Request|id, Publication|id]
 
 #### SUBSCRIBE
 
 Subscribe request sent by a *Subscriber* to a *Broker* to subscribe to a topic.
 
-    [SUBSCRIBE, Request|id, Options|dict, Topic|uri]
+    [SUBSCRIBE|32, Request|id, Options|dict, Topic|uri]
 
 #### SUBSCRIBED
 
 Acknowledge sent by a *Broker* to a *Subscriber* to acknowledge a subscription.
 
-    [SUBSCRIBED, SUBSCRIBE.Request|id, Subscription|id]
+    [SUBSCRIBED|33, SUBSCRIBE.Request|id, Subscription|id]
 
 #### UNSUBSCRIBE
 
 Unsubscribe request sent by a *Subscriber* to a *Broker* to unsubscribe a subscription.
 
-    [UNSUBSCRIBE, Request|id, SUBSCRIBED.Subscription|id]
+    [UNSUBSCRIBE|34, Request|id, SUBSCRIBED.Subscription|id]
 
 #### UNSUBSCRIBED
 
 Acknowledge sent by a *Broker* to a *Subscriber* to acknowledge unsubscription.
 
-    [UNSUBSCRIBED, UNSUBSCRIBE.Request|id]
+    [UNSUBSCRIBED|35, UNSUBSCRIBE.Request|id]
 
 #### EVENT
 
 Event dispatched by *Broker* to *Subscribers* for subscription the event was matching.
 
-    [EVENT, SUBSCRIBED.Subscription|id, PUBLISHED.Publication|id, Details|dict]
-    [EVENT, SUBSCRIBED.Subscription|id, PUBLISHED.Publication|id, Details|dict, PUBLISH.Arguments|list]
-    [EVENT, SUBSCRIBED.Subscription|id, PUBLISHED.Publication|id, Details|dict, PUBLISH.Arguments|list, PUBLISH.ArgumentsKw|dict]
+    [EVENT|36, SUBSCRIBED.Subscription|id, PUBLISHED.Publication|id, Details|dict]
+    [EVENT|36, SUBSCRIBED.Subscription|id, PUBLISHED.Publication|id, Details|dict, PUBLISH.Arguments|list]
+    [EVENT|36, SUBSCRIBED.Subscription|id, PUBLISHED.Publication|id, Details|dict, PUBLISH.Arguments|list, PUBLISH.ArgumentsKw|dict]
 
 #### CALL
 
 Call as originally issued by the *Caller* to the *Dealer*.
 
-    [CALL, Request|id, Options|dict, Procedure|uri]
-    [CALL, Request|id, Options|dict, Procedure|uri, Arguments|list]
-    [CALL, Request|id, Options|dict, Procedure|uri, Arguments|list, ArgumentsKw|dict]
+    [CALL|48, Request|id, Options|dict, Procedure|uri]
+    [CALL|48, Request|id, Options|dict, Procedure|uri, Arguments|list]
+    [CALL|48, Request|id, Options|dict, Procedure|uri, Arguments|list, ArgumentsKw|dict]
 
 #### RESULT
 
 Result of a call as returned by *Dealer* to *Caller*.
 
-    [RESULT, CALL.Request|id, Details|dict]
-    [RESULT, CALL.Request|id, Details|dict, YIELD.Arguments|list]
-    [RESULT, CALL.Request|id, Details|dict, YIELD.Arguments|list, YIELD.ArgumentsKw|dict]
+    [RESULT|50, CALL.Request|id, Details|dict]
+    [RESULT|50, CALL.Request|id, Details|dict, YIELD.Arguments|list]
+    [RESULT|50, CALL.Request|id, Details|dict, YIELD.Arguments|list, YIELD.ArgumentsKw|dict]
 
 #### REGISTER
 
 A *Callees* request to register an endpoint at a *Dealer*.
 
-    [REGISTER, Request|id, Options|dict, Procedure|uri]
+    [REGISTER|64, Request|id, Options|dict, Procedure|uri]
 
 #### REGISTERED
 
 Acknowledge sent by a *Dealer* to a *Callee* for successful registration.
 
-	[REGISTERED, REGISTER.Request|id, Registration|id]
+    [REGISTERED|65, REGISTER.Request|id, Registration|id]
 
 #### UNREGISTER
 
 A *Callees* request to unregister a previously established registration.
 
-    [UNREGISTER, Request|id, REGISTERED.Registration|id]
+    [UNREGISTER|66, Request|id, REGISTERED.Registration|id]
 
 #### UNREGISTERED
 
 Acknowledge sent by a *Dealer* to a *Callee* for successful unregistration.
 
-    [UNREGISTERED, UNREGISTER.Request|id]
+    [UNREGISTERED|67, UNREGISTER.Request|id]
 
 #### INVOCATION
 
 Actual invocation of an endpoint sent by *Dealer* to a *Callee*.
 
-    [INVOCATION, Request|id, REGISTERED.Registration|id, Details|dict]
-    [INVOCATION, Request|id, REGISTERED.Registration|id, Details|dict, CALL.Arguments|list]
-    [INVOCATION, Request|id, REGISTERED.Registration|id, Details|dict, CALL.Arguments|list, CALL.ArgumentsKw|dict]
+    [INVOCATION|68, Request|id, REGISTERED.Registration|id, Details|dict]
+    [INVOCATION|68, Request|id, REGISTERED.Registration|id, Details|dict, CALL.Arguments|list]
+    [INVOCATION|68, Request|id, REGISTERED.Registration|id, Details|dict, CALL.Arguments|list, CALL.ArgumentsKw|dict]
 
 #### YIELD
 
 Actual yield from an endpoint send by a *Callee* to *Dealer*.
 
-    [YIELD, INVOCATION.Request|id, Options|dict]
-    [YIELD, INVOCATION.Request|id, Options|dict, Arguments|list]
-    [YIELD, INVOCATION.Request|id, Options|dict, Arguments|list, ArgumentsKw|dict]
+    [YIELD|70, INVOCATION.Request|id, Options|dict]
+    [YIELD|70, INVOCATION.Request|id, Options|dict, Arguments|list]
+    [YIELD|70, INVOCATION.Request|id, Options|dict, Arguments|list, ArgumentsKw|dict]
 
 
 ### Message Codes and Direction
